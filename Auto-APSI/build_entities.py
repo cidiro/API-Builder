@@ -6,7 +6,7 @@ from Entity import *
 
 
 def build_entities(json_filepath):
-    with open(sys.argv[1], 'r') as file:
+    with open(json_filepath, 'r') as file:
         entities_json = json.load(file)
 
     entities = []

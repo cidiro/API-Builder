@@ -1,15 +1,26 @@
+import os
 import sys
-from os import path
 import json
+import subprocess
 import streamlit as st
+
+
+# Dirty shut down of Streamlit process
+def dirty_shut_down():
+    try:
+        subprocess.run(['taskkill', '/F', '/IM', 'streamlit.exe'], check=True)
+        print("Streamlit process terminated.")
+    except subprocess.CalledProcessError as e:
+        print("Failed to terminate Streamlit process:", e)
 
 
 # Save entities to JSON file
 def generate_json(dir_path):
-    with open(path.join(dir_path, "db.json"), "w") as file:
+    with open(os.path.join(dir_path, "db.json"), "w") as file:
         json.dump(list(st.session_state['entities'].values()), file, indent=2)
     st.success("Generated db.json!")
     st.balloons()
+    dirty_shut_down()
 
 
 # Main UI function
