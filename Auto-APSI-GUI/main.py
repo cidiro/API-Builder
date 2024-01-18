@@ -1,5 +1,7 @@
+# main.py
+
 import os
-import sys
+import argparse
 import json
 import subprocess
 import streamlit as st
@@ -25,9 +27,9 @@ def generate_json(dir_path):
 
 # Main UI function
 if __name__ == "__main__":
-    if len(sys.argv) < 2:
-        print("Usage: streamlit run main.py <target_directory>")
-        sys.exit(1)
+    parser = argparse.ArgumentParser(description="UI for Auto-APSI. Generates a db.json file.")
+    parser.add_argument('output', type=str, help="Output directory for the db.json file.")
+    args = parser.parse_args()
 
     st.set_page_config(page_title="Auto-APSI Builder", page_icon=":rocket:", layout="centered")
 
@@ -50,7 +52,7 @@ if __name__ == "__main__":
         st.session_state['add_entity'] = True
 
     st.sidebar.markdown("---")
-    st.sidebar.button("Generate", on_click=generate_json, args=[sys.argv[1]])
+    st.sidebar.button("Generate", on_click=generate_json, args=[args.output])
 
     # Main Page
     st.subheader(":rocket: Entity Builder")
