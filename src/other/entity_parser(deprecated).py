@@ -47,7 +47,7 @@ def entity_parser(filepath):
                             )
 
                             # Add the field to the entity
-                            entity.add_field(field)
+                            entity.add_field_view(field)
 
     # Check every field in every entity
     # If the field type is an entity name, set is_ref to True

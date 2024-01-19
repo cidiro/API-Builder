@@ -2,7 +2,7 @@
 
 import sys
 import json
-from Entity import *
+from .Entity import *
 
 
 def build_entities(json_filepath):

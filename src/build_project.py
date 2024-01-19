@@ -1,33 +1,33 @@
-# main.py
+# build_project.py
 
 import os
 import sys
-import argparse
-from build_entities import build_entities
+from .build_entities import build_entities
 
 
-if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Builds an API project from a db.json file.")
-    parser.add_argument('output', type=str, help="Output directory for the project.")
-    args = parser.parse_args()
-
-    if not os.path.exists(os.path.join(args.output, "db.json")):
+def build_project(option, output_dir):
+    if not os.path.isfile(os.path.join(output_dir, "db.json")):
         print("Error: db.json not found in target directory.")
         sys.exit(1)
 
     print("Building project...")
 
     template_dir = os.path.join(os.path.dirname(__file__), "template")
-    entities = build_entities(os.path.join(args.output, "db.json"))
+    entities = build_entities(os.path.join(output_dir, "db.json"))
 
     for root, dirs, files in os.walk(template_dir):
         for file in files:
             template_file = os.path.join(root, file)
             relative_path = os.path.relpath(template_file, template_dir)
-            output_file = os.path.join(args.output, relative_path[:-3])
-            print(output_file)
+            output_file = os.path.join(output_dir, relative_path[:-3])
 
-            output = ""
+            if option == 'rest' and 'gql' in output_file:
+                continue
+            elif option == 'gql' and 'rest' in output_file:
+                continue
+
+            output_file = output_file.replace(f"{option}\\", "")
+            print(output_file)
 
             if not ("[entity]" in output_file or "[Entity]" in output_file):
                 # Read template file

@@ -4,7 +4,7 @@
 def build(entities):
     return (
         '\n'.join([
-            f"import {{ {entity.name} }} from \"./{entity.name.lower()}.ts\";"
+            f"import {{ {entity.name} }} from \"./{entity.name}.ts\";"
             for entity in entities
         ]) + "\n\n"
 
