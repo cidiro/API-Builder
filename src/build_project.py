@@ -19,14 +19,15 @@ def build_project(option, output_dir):
         for file in files:
             template_file = os.path.join(root, file)
             relative_path = os.path.relpath(template_file, template_dir)
+
+            if option == 'rest' and 'gql' in relative_path:
+                continue
+            elif option == 'gql' and 'rest' in relative_path:
+                continue
+
+            relative_path = relative_path.replace(f"{option}\\", "")
+
             output_file = os.path.join(output_dir, relative_path[:-3])
-
-            if option == 'rest' and 'gql' in output_file:
-                continue
-            elif option == 'gql' and 'rest' in output_file:
-                continue
-
-            output_file = output_file.replace(f"{option}\\", "")
             print(output_file)
 
             if not ("[entity]" in output_file or "[Entity]" in output_file):

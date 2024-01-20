@@ -8,7 +8,7 @@ def build(entity):
         f"\"../../../db/{entity.name.lower()}/{entity.name.lower()}.ts\";\n\n"
        
         # Function header
-        f"const add{entity.name} = aync (\n"
+        f"const add{entity.name} = async (\n"
         f"  _: unknown,\n"
         f"  args: {{ "
         + ', '.join([

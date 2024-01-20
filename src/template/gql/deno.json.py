@@ -10,7 +10,7 @@ def build(entities):
   },
   "imports": {
     "@apollo/server": "npm:@apollo/server",
-    "@apollo/server/standalone": "npm:@apollo/server@^4.9.5/standalone",
+    "@apollo/server/standalone": "npm:@apollo/server/standalone",
     "graphql": "npm:graphql@^16.8.1",
     "mongoose": "npm:mongoose@^8.0.1"
   }

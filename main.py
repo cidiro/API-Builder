@@ -58,8 +58,10 @@ def entity_view(radio_selection):
     if st.session_state['entities']:
         entity = st.session_state['entities'][radio_selection]
         st.header(f"{entity['name']} / {entity['name_plural']}")
+        st.markdown("<br>", unsafe_allow_html=True)
         if not entity['fields']:
             st.write("This entity has no fields yet.")
+            st.markdown("---")
         for field in entity['fields']:
             st.markdown(f"""
                     <div style="border:1px solid gray; padding:10px; margin:5px; border-radius:8px;">
@@ -67,6 +69,7 @@ def entity_view(radio_selection):
                         <p>required: <strong>{field['is_required']}</strong>, unique: <strong>{field['is_unique']}</strong>, array: <strong>{field['is_array']}</strong></p>
                     </div>
                     """, unsafe_allow_html=True)
+            st.markdown("")
             col1, col2, col3 = st.columns(3)
             with col1:
                 if st.button("Move Up", key=f"move_up_{field['name']}"):
@@ -90,7 +93,7 @@ def entity_view(radio_selection):
                 if st.button("Delete", key=f"delete_{field['name']}"):
                     st.session_state['entities'][radio_selection]['fields'].remove(field)
                     st.rerun()
-        st.markdown("---")
+            st.markdown("---")
         if st.button("Add Field"):
             st.session_state['add_field'] = True
             st.rerun()
