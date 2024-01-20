@@ -20,6 +20,8 @@ def add_entity_view():
             }
             st.session_state['add_entity'] = False
             st.rerun()
+    st.write("")
+    st.write(":gray[All entities have an implicit `_id` field.]")
     st.markdown("---")
     if st.button("Go Back"):
         st.session_state['add_entity'] = False
@@ -60,7 +62,7 @@ def entity_view(radio_selection):
         st.header(f"{entity['name']} / {entity['name_plural']}")
         st.markdown("<br>", unsafe_allow_html=True)
         if not entity['fields']:
-            st.write("This entity has no fields yet.")
+            st.write(":gray[This entity has no fields yet.]")
             st.markdown("---")
         for field in entity['fields']:
             st.markdown(f"""
@@ -98,8 +100,8 @@ def entity_view(radio_selection):
             st.session_state['add_field'] = True
             st.rerun()
     else:
-        st.write("No entities have been added yet.\n\n"
-                 "Click the button on the left to add one.")
+        st.write(":gray[No entities have been added yet.]")
+        st.write(":gray[Click the button on the left to add one.]")
 
 
 def dirty_shutdown():
