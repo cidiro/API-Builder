@@ -12,13 +12,13 @@ def build_project(option, output_dir):
 
     print("Building project...")
 
-    template_dir = os.path.join(os.path.dirname(__file__), "template")
+    blueprints_dir = os.path.join(os.path.dirname(__file__), "blueprints")
     entities = build_entities(os.path.join(output_dir, "db.json"))
 
-    for root, dirs, files in os.walk(template_dir):
+    for root, dirs, files in os.walk(blueprints_dir):
         for file in files:
-            template_file = os.path.join(root, file)
-            relative_path = os.path.relpath(template_file, template_dir)
+            blueprint_file = os.path.join(root, file)
+            relative_path = os.path.relpath(blueprint_file, blueprints_dir)
 
             if option == 'rest' and 'gql' in relative_path:
                 continue
@@ -31,11 +31,11 @@ def build_project(option, output_dir):
             print(output_file)
 
             if not ("[entity]" in output_file or "[Entity]" in output_file):
-                # Read template file
-                with open(template_file, "r") as f:
+                # Read blueprints file
+                with open(blueprint_file, "r") as f:
                     program = f.read()
 
-                # Execute template file
+                # Execute blueprints file
                 namespace = {}
                 exec(program, namespace)
                 output = namespace['build'](entities)
@@ -51,11 +51,11 @@ def build_project(option, output_dir):
                     entity_output_file = entity_output_file.replace("[Entity]", entity.name)
                     entity_output_file = entity_output_file.replace("[Entities]", entity.name_plural)
 
-                    # Read template file
-                    with open(template_file, "r") as f:
+                    # Read blueprints file
+                    with open(blueprint_file, "r") as f:
                         program = f.read()
 
-                    # Execute template file
+                    # Execute blueprints file
                     namespace = {}
                     exec(program, namespace)
 

@@ -127,7 +127,7 @@ def start_build_project(option, output_dir):
 
 
 def main():
-    st.set_page_config(page_title="Auto-APSI Builder", page_icon=":rocket:", layout="centered")
+    st.set_page_config(page_title="API Builder", page_icon=":rocket:", layout="centered")
 
     # State management for entities
     if 'entities' not in st.session_state:
